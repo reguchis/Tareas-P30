@@ -1,0 +1,24 @@
+TAREAS Y CALIFICACIONES - paquete PWA (version 1.0.0-beta.1)
+App personal del docente, companera de "Control de Asistencia". Repositorio: Tareas-P30
+Enlace: https://reguchis.github.io/Tareas-P30/
+
+SUBIR A GITHUB PAGES
+Sube TODO el contenido de esta carpeta (no la carpeta dentro de otra): index.html, sw.js,
+version.json, manifest.webmanifest, LEEME.txt, icon-192.png e icon-512.png.
+La primera vez: Settings > Pages > Deploy from a branch > main / root.
+
+INSTALAR: abre el enlace con internet una vez, espera a que cargue y usa "Instalar aplicacion".
+Queda un icono verde "Tareas", aparte del de Asistencia.
+
+PRIMER USO: en la app de Asistencia, Ajustes > Exportar respaldo. Aqui, Alumnos >
+"Traer alumnos de Asistencia" con ese archivo.
+
+DATOS SEPARADOS DE ASISTENCIA
+Esta app esta en el mismo sitio que Asistencia (reguchis.github.io), pero guarda todo con nombre
+propio: base de datos "tareas", copias sin internet "tareas-app-..." (solo borra las suyas) y
+ajustes del navegador "tareas.". Nunca escribe nada en la app de Asistencia.
+Usa Asistencia 2.0.24 o posterior en tus aparatos: las anteriores borraban la copia sin internet
+de las otras apps del sitio (si pasa, esta app se repara sola al abrirla con internet).
+
+ACTUALIZAR: reemplaza todos los archivos (incluido version.json), espera unos minutos y en la app:
+Ajustes > Buscar actualizacion. Los datos no se borran.
