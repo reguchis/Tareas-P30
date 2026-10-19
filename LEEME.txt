@@ -1,4 +1,4 @@
-TAREAS Y CALIFICACIONES - paquete PWA (version 1.0.0-beta.5)
+TAREAS Y CALIFICACIONES - paquete PWA (version 1.0.0-beta.6)
 App personal del docente, companera de "Control de Asistencia". Repositorio: Tareas-P30
 Enlace: https://reguchis.github.io/Tareas-P30/
 
@@ -21,4 +21,4 @@ Usa Asistencia 2.0.24 o posterior en tus aparatos: las anteriores borraban la co
 de las otras apps del sitio (si pasa, esta app se repara sola al abrirla con internet).
 
 ACTUALIZAR: reemplaza todos los archivos (incluido version.json), espera unos minutos y en la app:
-Ajustes > Buscar actualizacion. Los datos no se borran.
+Ajustes > Actualizaciones > Buscar actualizacion. Los datos no se borran.
