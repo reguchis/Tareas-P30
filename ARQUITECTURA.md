@@ -6,7 +6,7 @@ Versión 1.0.0-beta.18 · hecha sobre Tareas 1.0.0-beta.45 (Tareas-P30).
 - PWA en un solo `index.html` (HTML, CSS y JavaScript sin frameworks), más `sw.js`, `manifest.webmanifest`, `version.json`, `LEEME.txt` e íconos.
 - Funciona sin internet. El `sw.js` guarda su copia en cachés `tareasg-app-…`, borra solo las suyas y se repara solo (`heal`). Usa la misma estrategia de actualización que Tareas y Asistencia: `version.json` + `pubListo` + `doUpd` con reintentos.
 - Se reutilizaron **sin cambios** los módulos de Tareas beta.45: deslizar entre pestañas (el gesto sigue al dedo), Subir/Bajar, Guardar en el celular o Compartir (`sOut`), reconexión a la base (`dbRe`), tema, encabezado con reloj, tarjetas plegables, vuelta al mismo lugar al cambiar de pestaña, manual con índice y buscador, respaldo con Deshacer, Protección de mis datos, calificar desde el reporte, ficha del alumno y el dibujo de PDF e imagen.
-- Identidad propia en el mismo sitio que Asistencia y Tareas-P30: IndexedDB `tareasg`, `localStorage` con prefijo `tareasg.` y manifiesto con `id: /Tareas-G/`.
+- Identidad propia en el mismo sitio que Asistencia y Tareas-P30: IndexedDB `tareasg`, `localStorage` con prefijo `tareasg.` y manifiesto sin `id` (desde la 1.2.2): Chrome la reconoce por su dirección, `reguchis.github.io/Tareas-P30/`.
 
 ## Modelo de datos (IndexedDB `tareasg`, versión 1)
 | Almacén | Campos | Para qué |

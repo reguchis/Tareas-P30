@@ -1,15 +1,9 @@
-TAREAS Y CALIFICACIONES - paquete PWA (version 1.2.1)
+TAREAS Y CALIFICACIONES - paquete PWA (version 1.2.2)
 Para todo el personal docente: cada quien arma su evaluacion (criterios y porcentajes),
 captura con botones y la app calcula los promedios. Companera de "Control de Asistencia".
-Repositorio: Tareas   Enlace: https://reguchis.github.io/Tareas/
-CAMBIO DE REPOSITORIO (de Tareas-G a Tareas), una sola vez:
-  1. En la app actual: Ajustes > Exportar respaldo (tu seguro).
-  2. Crea el repositorio "Tareas", sube estos archivos y activa Pages (main / root).
-  3. Abre https://reguchis.github.io/Tareas/ , instala la app y revisa que esten tus grupos y calificaciones
-     (los datos se guardan por dominio, asi que la app nueva los encuentra).
-  4. Desinstala el icono viejo. Si pregunta si tambien borra los datos del sitio, responde que NO:
-     ese borrado se llevaria los datos de todas tus apps (Asistencia, Tareas y Ajedrez).
-  5. Borra el repositorio Tareas-G.
+Repositorio: Tareas-P30   Enlace: https://reguchis.github.io/Tareas-P30/
+IMPORTANTE: no cambies el nombre del repositorio. Los celulares reconocen la app por esa direccion;
+si cambia, el icono deja de actualizarse solo y cada docente tendria que reinstalar la app.
 
 SUBIR A GITHUB PAGES
 Sube TODO el contenido de esta carpeta (no la carpeta dentro de otra): index.html, sw.js,
@@ -17,15 +11,15 @@ version.json, manifest.webmanifest, LEEME.txt, icon-192-v3.png, icon-512-v3.png,
 La primera vez: Settings > Pages > Deploy from a branch > main / root.
 
 INSTALAR: abre el enlace con internet una vez, espera a que cargue y usa "Instalar aplicacion".
-Queda un icono verde "Tareas", aparte de "Tareas P30" (la anterior) y de Asistencia.
+Queda un icono verde "Tareas", aparte del de Asistencia. En Android el icono se actualiza solo.
 
 PRIMER USO: Ajustes > Configuracion (nombre). Alumnos > "Traer alumnos de Asistencia" o
 "Agregar a mano". Calificar > "Crear evaluacion nueva".
 
 DATOS SEPARADOS
-Vive en el mismo sitio que Asistencia y Tareas-P30 (reguchis.github.io), pero guarda todo con
+Vive en el mismo sitio que Asistencia y Ajedrez (reguchis.github.io), pero guarda todo con
 nombre propio: base de datos "tareasg", copias sin internet "tareasg-app-..." (solo borra las suyas)
-y ajustes del navegador "tareasg.". Nunca escribe nada en Asistencia ni en Tareas-P30.
+y ajustes del navegador "tareasg.". Nunca escribe nada en las otras apps.
 
 ACTUALIZAR: reemplaza todos los archivos (incluido version.json), espera unos minutos y en la app:
 Ajustes > Actualizaciones > Buscar actualizacion. Los datos no se borran.
