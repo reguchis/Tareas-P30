@@ -1,4 +1,13 @@
-TAREAS Y CALIFICACIONES - paquete PWA (version 1.3.2)
+TAREAS Y CALIFICACIONES - paquete PWA (version 1.4.0)
+
+NOVEDADES 1.4.0
+- Ajustes agrupado en 7 tarjetas (Mis datos y respaldo, Configuracion, Parciales, Libro de Excel, Mas opciones, Ayuda y version, Borrar datos). Nada se quito.
+- 'Importar de mi libro (hoja CE)' elige solo el parcial por el nombre del libro (Primer, Segundo o Tercer periodo).
+- Google Drive: en celular y tablet se entra a Google en la misma pantalla (sin pagina en blanco). Dice 'En prueba'.
+- Huella de version: si se publica un cambio sin subir el numero, los aparatos se actualizan igual.
+- GOOGLE CLOUD (una sola vez, antes de subir): en la llave OAuth de 'Apps P30' agrega en 'URI de redireccionamiento autorizados':
+  https://reguchis.github.io/Asistencia-P30/  https://reguchis.github.io/Tareas-P30/  https://reguchis.github.io/Ajedrez-P30/
+
 Para todo el personal docente: cada quien arma su evaluacion (criterios y porcentajes),
 captura con botones y la app calcula los promedios. Companera de "Control de Asistencia".
 Repositorio: Tareas-P30   Enlace: https://reguchis.github.io/Tareas-P30/
