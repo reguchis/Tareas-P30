@@ -121,7 +121,7 @@ button.swi[aria-checked=true] i::after{left:23px}
 <style>/* 1.1.20: listas agrupadas: las tarjetas desplegables seguidas forman un solo bloque (en todas las pestañas) */details.card.gq{border-radius:0;padding:13px 14px}details.card.gq:not(.gqf){margin-top:0!important;border-top-width:0}details.card.gq:not(.gql){margin-bottom:0!important}details.card.gqf{border-radius:12px 12px 0 0}details.card.gql{border-radius:0 0 12px 12px}</style></head><body><header id=apph><button class=g id=salb title="Salir de la app" aria-label="Salir de la app" onclick="salir()"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 3v8"/><path d="M6.3 7.2a8 8 0 1 0 11.4 0"/></svg></button><span id=hlogo></span><div><b>Tareas y Calificaciones</b><span hidden></span></div><button class=g id=helpb title="Ayuda de esta pantalla" aria-label="Ayuda de esta pantalla" onclick="ayuda()">?</button></header><div id=updb hidden><span></span><button onclick="doUpd()">Actualizar</button><button class=g aria-label="Cerrar aviso" onclick="this.parentNode.hidden=true">✕</button></div><div id=tophd hidden><div id=hdh class=hd></div><p class=dcl id=tdc></p><div id=hcl class=hc hidden><span class=l></span><span class=r></span></div></div><div id="app"></div>
 <nav><button onclick="go('tar')" id="t-tar">Calificar</button><button onclick="go('rep')" id="t-rep">Reportes</button><button onclick="go('alu')" id="t-alu">Alumnos</button><button onclick="go('aju')" id="t-aju">Ajustes</button></nav>
 <script>
-const VER='1.4.0',BLD='e1d5d565',CURV=VER+'+'+BLD;
+const VER='1.4.1',BLD='90b0f7eb',CURV=VER+'+'+BLD;
 /* 2.3.0/1.4.0: huella de la versión. Cada paquete lleva una huella de su contenido (BLD, igual en version.json y sw.js):
    si se publica un cambio sin subir el número, la huella cambia y los aparatos se actualizan igual. */
 const vN=x=>String(x||'').split('+')[0],vB=x=>String(x||'').split('+')[1]||'',vMismo=x=>x==CURV||(!vB(x)&&vN(x)==VER),vTx=x=>vN(x)==VER?VER+' (corrección)':vN(x);
@@ -243,7 +243,7 @@ window.addEventListener('online',()=>gdAuto('red'));
 document.addEventListener('visibilitychange',()=>{if(!gdOn())return;if(document.visibilityState=='visible')gdAuto('volver');else if(gdTok()&&gdLastW()>(gdSt().up||0))gdSync('salir').catch(()=>{})});
 setInterval(()=>{if(document.visibilityState=='visible'&&gdOn()&&gdTok())gdSync('reloj').catch(()=>{})},300000);
 function gdOpenCard(){HOP.gdc=true;if(typeof tab!='undefined'&&tab=='aju'){show()}else go('aju');setTimeout(()=>{const c=document.getElementById('gdc');if(c){c.open=true;c.scrollIntoView({block:'center'})}},700)}
-setTimeout(()=>{if(GDRET)return gdDespues();if(gdOn()){gdGis().catch(()=>{});gdAuto('abrir')}},2500);
+setTimeout(()=>{if(GDRET)return gdDespues();if(gdOn()){gdGis().catch(()=>{});gdAuto('abrir')}},GDRET?700:2500);
 
 /* tarjeta en Ajustes › Tus datos (antes de «Mis dispositivos») */
 function gdCard(){return`<details class=card id=gdc ${HOP.gdc?'open':''} ontoggle="HOP.gdc=this.open;if(this.open&&GD_CID)gdGis().catch(()=>{})"><summary><span><b>Sincronizar con Google Drive</b>${gdOn()?' <span class=m style="font-size:13px">· activa</span>':''}</span></summary><div id=gdi>${gdInner()}</div></details>`}
@@ -2054,7 +2054,7 @@ for(const k of['taXls','taXlsT','taOpenE','taOpen1','impDo','mdDo','asDo','p30Do
 addEventListener('unhandledrejection',e=>{BUSY=false;toast('Ocurrió un error: '+((e.reason&&e.reason.message)||e.reason||'desconocido')+'. Vuelve a intentarlo.')});
 (async()=>{const hl=$('#hlogo');if(hl)hl.innerHTML=LOGO(36);try{const t=localStorage.getItem(LSP+'th');if(t&&t!='auto')document.documentElement.dataset.theme=t}catch(e){}try{navigator.storage.persist()}catch(e){}
 try{const nv=new URLSearchParams(location.search).get('v');if(nv){history.replaceState(null,'',location.pathname);setTimeout(()=>toast(vMismo(nv)||nv==VER?'App actualizada a la versión '+VER:'La versión '+vN(nv)+' aún no está publicada por completo: sigues en la '+VER+'.'),600)}}catch(e){}
-await cfgLee();hdSch();if(!(await all('groups')).length)tab='alu';show();setTimeout(autoUpd,1200)})();
+await cfgLee();hdSch();if(!(await all('groups')).length)tab='alu';if(GDRET){tab='aju';HOP.datc=HOP.gdc=true}show();setTimeout(autoUpd,1200)})();
 if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{}));
 
 </script><script>/* 1.1.11: la fecha y la hora de la portada usan la letra más grande que cabe en un renglón en cada celular */

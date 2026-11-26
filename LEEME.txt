@@ -1,4 +1,7 @@
-TAREAS Y CALIFICACIONES - paquete PWA (version 1.4.0)
+TAREAS Y CALIFICACIONES - paquete PWA (version 1.4.1)
+
+NOVEDADES 1.4.1
+- Al volver de Google (Drive) la app abre directo en Ajustes > Google Drive, sin pasar por Calificar.
 
 NOVEDADES 1.4.0
 - Ajustes agrupado en 7 tarjetas (Mis datos y respaldo, Configuracion, Parciales, Libro de Excel, Mas opciones, Ayuda y version, Borrar datos). Nada se quito.
