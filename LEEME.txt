@@ -1,4 +1,4 @@
-TAREAS Y CALIFICACIONES - paquete PWA (version 1.3.0)
+TAREAS Y CALIFICACIONES - paquete PWA (version 1.3.1)
 Para todo el personal docente: cada quien arma su evaluacion (criterios y porcentajes),
 captura con botones y la app calcula los promedios. Companera de "Control de Asistencia".
 Repositorio: Tareas-P30   Enlace: https://reguchis.github.io/Tareas-P30/
