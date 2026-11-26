@@ -77,7 +77,9 @@ button.bt-t{background:var(--ps);color:var(--p);border:1.5px solid transparent}
 button.bt-s{background:var(--oks);color:var(--ok);border:1.5px solid var(--ok)}
 button.bt-c{background:transparent;color:var(--p);border:1.5px solid var(--p)}
 button.bt-d{background:transparent;color:var(--er);border:1.5px solid var(--er)}
-button.bt-a{background:transparent;border:1.5px dashed var(--b)}
+button.bt-a{background:transparent;border:1.5px dashed var(--m)}
+button.bt-x{color:var(--er)}
+button.bt-h,.sb button,.tb button,#mch button{min-height:44px}
 button.wf,button.mdb,button.bt-d,button.bt-t,button.bt-c,button.bt-s,button[onclick^="prPed"],button[onclick^="bkW"],button[onclick^="tBkW"]{min-height:44px}
 .apd button,#gdi .gdcp button{min-height:40px}
 button{transition:transform .08s ease,filter .08s ease}
@@ -227,10 +229,16 @@ function gdRefresh(n){toast('Google Drive: '+(n==1?'llegó 1 cambio':'llegaron '
 (function(){try{const P=IDBObjectStore.prototype;['put','add','delete','clear'].forEach(n=>{const o=P[n];P[n]=function(a){try{const k=n=='put'||n=='add'?a&&a.k:a;if(!(this.name=='kv'&&typeof k=='string'&&k.indexOf('md|')==0))gdMark()}catch(e){}return o.apply(this,arguments)}})}catch(e){}})();
 
 /* 1.3.1: SISTEMA DE BOTONES. Cada botón toma su tipo por lo que hace (mismo criterio en las tres apps). Solo cambia el aspecto. */
-const BT_T=/^(📖 Ver manual de uso|⟳ Buscar actualización|Probar cámara|Enviar a mi otro dispositivo|Sincronizar ahora|Exportar respaldo primero)$/,
+const BT_T=/^(📖 Ver manual de uso|⟳ Buscar actualización|Probar cámara|Enviar a mi otro dispositivo|Sincronizar ahora|Exportar respaldo primero|Tomar|Iniciar ahora.*|Revisar clases|Capturar extraordinaria|Cómo instalar el ícono|Aplicar ahora a los grupos marcados)$/,
 BT_D=/^(Borrar registro|Borrar registros de asistencia|Borrar todos los alumnos|Borrar todo el horario|Borrar calificaciones|Borrar alumnos y grupos|Restablecer configuración|Volver a los de fábrica|Quitar todo|Quitar del horario|Dar de baja|Borrar sin respaldo|Quitar a )/,
-BT_C=/^✕ Cerrar (reporte|análisis)$/,BT_A=/^\+ ?[A-Za-zÁÉÍÓÚáéíóú]/;
+BT_C=/^✕ Cerrar (reporte|análisis)$/,BT_A=/^\+ ?[A-Za-zÁÉÍÓÚáéíóú]/,
+BT_H=/^(lst|fin|capEnd|niSes|byMat|fotoQR|openC|niAsk|niDel|niDelDay|fixS|repDe|evOpen|evX|taBack|taOpen|taOpenE|taOpen1|asPick|taApl|addG|addS|capX|openX|niPrev|rFi|rEdN|rEdX|taSet|rEdS|taHalf|rEdH|taAllH|taAll|taNew|anRep)\(/;
 function btCls(){document.querySelectorAll('button:not([data-bt])').forEach(b=>{b.dataset.bt=1;if(b.closest('nav'))return;const t=b.textContent.trim();
+const oc=b.getAttribute('onclick')||'';if(BT_H.test(oc))b.classList.add('bt-h');
+/* ✕ de quitar en listas y tablas: en rojo (no los ✕ que solo cierran un aviso) */
+if(t=='✕'&&b.classList.contains('g')&&!/^this\./.test(oc))b.classList.add('bt-x');
+/* «Importar» del criterio Asistencia: relleno, igual que «Calificar» */
+if(t=='Importar'&&/^asPick\(/.test(oc))b.classList.remove('g');
 if(BT_T.test(t)){b.classList.remove('g');b.classList.add('bt-t')}else if(BT_D.test(t)){b.classList.remove('g');b.classList.add('bt-d')}else if(BT_C.test(t)){b.classList.remove('g');b.classList.add('bt-c')}else if(BT_A.test(t)&&b.classList.contains('g'))b.classList.add('bt-a')});thUI()}
 function thUI(){const v=document.documentElement.dataset.theme||'auto';document.querySelectorAll('.seg [data-th]').forEach(b=>{const on=b.dataset.th==v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
 (function(){let q=0;try{new MutationObserver(()=>{if(q)return;q=1;requestAnimationFrame(()=>{q=0;btCls()})}).observe(document.body,{childList:true,subtree:true})}catch(e){}setTimeout(btCls,0)})();
