@@ -78,7 +78,16 @@ button.bt-s{background:var(--oks);color:var(--ok);border:1.5px solid var(--ok)}
 button.bt-c{background:transparent;color:var(--p);border:1.5px solid var(--p)}
 button.bt-d{background:transparent;color:var(--er);border:1.5px solid var(--er)}
 button.bt-a{background:transparent;border:1.5px dashed var(--m)}
-button.bt-x{color:var(--er)}
+button.bt-x{color:var(--dg)}
+/* rojo de borrar: el mismo tono que Ajedrez (en modo oscuro, salmón suave con letra oscura) */
+:root{--dg:#a3312a}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--dg:#ec8279}}
+:root[data-theme=dark]{--dg:#ec8279}
+button.bt-d{color:var(--dg);border-color:var(--dg)}
+button[style*="background:var(--er)"]{background:var(--dg)!important;color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) button[style*="background:var(--er)"]{color:var(--bg)}}
+:root[data-theme=dark] button[style*="background:var(--er)"]{color:var(--bg)}
+
 button.bt-h,.sb button,.tb button,#mch button{min-height:44px}
 button.wf,button.mdb,button.bt-d,button.bt-t,button.bt-c,button.bt-s,button[onclick^="prPed"],button[onclick^="bkW"],button[onclick^="tBkW"]{min-height:44px}
 .apd button,#gdi .gdcp button{min-height:40px}
