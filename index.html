@@ -121,7 +121,7 @@ button.swi[aria-checked=true] i::after{left:23px}
 <style>/* 1.1.20: listas agrupadas: las tarjetas desplegables seguidas forman un solo bloque (en todas las pestañas) */details.card.gq{border-radius:0;padding:13px 14px}details.card.gq:not(.gqf){margin-top:0!important;border-top-width:0}details.card.gq:not(.gql){margin-bottom:0!important}details.card.gqf{border-radius:12px 12px 0 0}details.card.gql{border-radius:0 0 12px 12px}</style></head><body><header id=apph><button class=g id=salb title="Salir de la app" aria-label="Salir de la app" onclick="salir()"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 3v8"/><path d="M6.3 7.2a8 8 0 1 0 11.4 0"/></svg></button><span id=hlogo></span><div><b>Tareas y Calificaciones</b><span hidden></span></div><button class=g id=helpb title="Ayuda de esta pantalla" aria-label="Ayuda de esta pantalla" onclick="ayuda()">?</button></header><div id=updb hidden><span></span><button onclick="doUpd()">Actualizar</button><button class=g aria-label="Cerrar aviso" onclick="this.parentNode.hidden=true">✕</button></div><div id=tophd hidden><div id=hdh class=hd></div><p class=dcl id=tdc></p><div id=hcl class=hc hidden><span class=l></span><span class=r></span></div></div><div id="app"></div>
 <nav><button onclick="go('tar')" id="t-tar">Calificar</button><button onclick="go('rep')" id="t-rep">Reportes</button><button onclick="go('alu')" id="t-alu">Alumnos</button><button onclick="go('aju')" id="t-aju">Ajustes</button></nav>
 <script>
-const VER='1.4.1',BLD='90b0f7eb',CURV=VER+'+'+BLD;
+const VER='1.4.2',BLD='fd28d595',CURV=VER+'+'+BLD;
 /* 2.3.0/1.4.0: huella de la versión. Cada paquete lleva una huella de su contenido (BLD, igual en version.json y sw.js):
    si se publica un cambio sin subir el número, la huella cambia y los aparatos se actualizan igual. */
 const vN=x=>String(x||'').split('+')[0],vB=x=>String(x||'').split('+')[1]||'',vMismo=x=>x==CURV||(!vB(x)&&vN(x)==VER),vTx=x=>vN(x)==VER?VER+' (corrección)':vN(x);
@@ -163,13 +163,13 @@ function gdGis(){return new Promise((res,rej)=>{if(window.google&&google.account
 /* 2.3.0 · 1.4.0 · 1.6.0: en celular y tablet el permiso de Google se pide en la misma pantalla (la app va a Google y regresa),
    sin ventana aparte: así ya no queda una página en blanco «reguchis.github.io» y funciona en iPhone con el ícono instalado.
    En computadora se usa la ventana de Google de siempre. La dirección de regreso es la de la app (registrada en Google Cloud). */
-const GD_RET='p30.gdret.'+GD_APP,GD_PRUEBA=1;
+const GD_RET='p30.gdret.'+GD_APP,GD_PRUEBA=1;let GDRID='';
 function gdRedir(){const u=navigator.userAgent||'';return /Android|iPhone|iPad|iPod|Mobile/i.test(u)||(navigator.maxTouchPoints>1&&/Macintosh/.test(u))}
 function gdRU(){return location.origin+location.pathname.replace(/index\.html$/,'')}
-function gdGo(then,primera){const s=Math.random().toString(36).slice(2)+Date.now().toString(36),src=String(then||''),a=primera?'entrar':/gdCopias|gdRecuperar/.test(src)?'copias':'sync';
-try{localStorage.setItem(GD_RET,JSON.stringify({s,a,t:Date.now()}))}catch(e){return toast('Este aparato no deja guardar datos de la app: no se puede entrar con Google')}
+function gdGo(then,primera){const s=Math.random().toString(36).slice(2)+Date.now().toString(36),src=String(then||''),a=primera?'entrar':/gdRecuperar/.test(src)&&GDRID?'rec':/gdCopias/.test(src)?'copias':'sync';
+try{localStorage.setItem(GD_RET,JSON.stringify({s,a,t:Date.now(),id:a=='rec'?GDRID:''}))}catch(e){return toast('Este aparato no deja guardar datos de la app: no se puede entrar con Google')}
 const st=gdSt(),q={client_id:GD_CID,redirect_uri:gdRU(),response_type:'token',scope:GD_SC,include_granted_scopes:'true',state:s};if(primera)q.prompt='select_account';if(st.email)q.login_hint=st.email;
-toast('Abriendo Google…');location.assign('https://accounts.google.com/o/oauth2/v2/auth?'+new URLSearchParams(q).toString())}
+toast('Abriendo Google…');location.replace('https://accounts.google.com/o/oauth2/v2/auth?'+new URLSearchParams(q).toString())}
 /* al regresar de Google: guarda el permiso, limpia la dirección y sigue con lo que se había tocado */
 function gdRet(){const h=location.hash||'';if(!/(access_token|error)=/.test(h))return null;const p=new URLSearchParams(h.slice(1));let r=null;try{r=JSON.parse(localStorage.getItem(GD_RET)||'null');localStorage.removeItem(GD_RET)}catch(e){}
 try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
@@ -177,10 +177,10 @@ if(!r||p.get('state')!==r.s||Date.now()-r.t>15*60000)return{msg:'No se completó
 if(p.get('error'))return{msg:p.get('error')=='access_denied'?'Google no dio el permiso. Si dice «Acceso bloqueado», tu cuenta todavía no está autorizada para la sincronización (está en prueba)':'No se completó la entrada con Google ('+p.get('error')+')'};
 const tk=p.get('access_token');if(!tk)return{msg:'No se completó la entrada con Google'};
 if((p.get('scope')||GD_SC).indexOf('drive.appdata')<0)return{msg:'Falta el permiso de Drive: vuelve a tocar y marca la casilla de Google Drive'};
-try{localStorage.setItem(GD_TK,JSON.stringify({t:tk,e:Date.now()+(+p.get('expires_in')||3600)*1000}))}catch(e){}return{a:r.a}}
+try{localStorage.setItem(GD_TK,JSON.stringify({t:tk,e:Date.now()+(+p.get('expires_in')||3600)*1000}))}catch(e){}return{a:r.a,id:r.id||''}}
 const GDRET=gdRet();
 function gdDespues(){const r=GDRET;if(!r)return;if(r.msg){gdOpenCard();setTimeout(()=>toast(r.msg,6000),400);return}gdBar(0);gdOpenCard();
-setTimeout(()=>{if(r.a=='entrar')gdEntrarOk();else if(r.a=='copias'){gdSync('toque');gdCopias()}else gdSync('toque').then(()=>{const s=gdSt();toast(s.err?s.err:'Sincronizado')})},600)}
+setTimeout(()=>{if(r.a=='entrar')gdEntrarOk();else if(r.a=='rec'&&r.id){gdRecuperar(r.id)}else if(r.a=='copias'){gdSync('toque');gdCopias()}else gdSync('toque').then(()=>{const s=gdSt();toast(s.err?s.err:'Sincronizado')})},600)}
 function gdAsk(then,primera){if(!GD_CID)return toast('La sincronización todavía no está activada en esta versión');if(!navigator.onLine)return toast('Sin internet: conéctate para sincronizar');if(gdRedir())return gdGo(then,primera);
 if(!(window.google&&google.accounts&&google.accounts.oauth2)){toast('Conectando con Google… vuelve a tocar en un momento');gdGis().catch(e=>toast(e.message));return}
 const st=gdSt();try{google.accounts.oauth2.initTokenClient({client_id:GD_CID,scope:GD_SC,prompt:primera?'select_account':'',hint:st.email||undefined,
@@ -234,7 +234,7 @@ async function gdEntrarOk(){const st=gdSt();st.on=1;st.up=0;st.ver='';st.err='';
 function gdAhora(){if(!gdTok())return gdAsk(()=>gdAhora());gdSync('ahora').then(n=>{const s=gdSt();toast(s.err?s.err:n?'Sincronizado: llegaron cambios de tu otro dispositivo':'Sincronizado')})}
 function gdSalir(){gdConfirm('¿Dejar de sincronizar con Google Drive en este dispositivo? Tus datos se quedan aquí y la copia de Drive no se borra.',()=>{const st=gdSt();gdSave({email:st.email||''});const otra=['asistencia.gd','tareasg.gd','torneo-suizo-gd'].some(k=>{if(k==GD_K)return false;try{return!!(JSON.parse(localStorage.getItem(k)||'{}')||{}).on}catch(e){return false}});if(!otra)try{localStorage.removeItem(GD_TK)}catch(e){}gdBar(0);GDCP=null;gdUI();toast('Sincronización desactivada en este dispositivo')})}
 async function gdCopias(){if(!gdTok())return gdAsk(()=>gdCopias());GDCP='cargando';gdUI();try{const L=await gdList();GDCP=L.filter(f=>f.name!=GD_APP+'.json').sort((a,b)=>a.name<b.name?1:-1).map(f=>({id:f.id,d:f.name.slice(GD_APP.length+1,-5)}))}catch(e){GDCP=null;if(e.auth)return gdAsk(()=>gdCopias());toast(e.message)}gdUI()}
-async function gdRecuperar(id){if(!gdTok())return gdAsk(()=>gdRecuperar(id));try{const txt=await gdTxt(id);gdAbrir(txt)}catch(e){if(e.auth)return gdAsk(()=>gdRecuperar(id));toast(e.message)}}
+async function gdRecuperar(id){GDRID=id;if(!gdTok())return gdAsk(()=>gdRecuperar(id));try{const txt=await gdTxt(id);gdAbrir(txt)}catch(e){if(e.auth)return gdAsk(()=>gdRecuperar(id));toast(e.message)}}
 /* texto de la tarjeta (lo usa cada app con su propio estilo) */
 function gdEstado(){const st=gdSt(),tk=!!gdTok();return{on:!!st.on,email:st.email||'',last:st.last||0,err:st.err||'',tk,pend:!!st.on&&gdLastW()>(st.up||0),busy:!!GDN,cid:!!GD_CID}}
 function gdCopiasHtml(btn){if(GDCP=='cargando')return'<p class="m" style="font-size:13px;margin:8px 0 0">Buscando copias…</p>';if(!GDCP)return'';if(!GDCP.length)return'<p class="m" style="font-size:13px;margin:8px 0 0">Todavía no hay copias diarias: se crea una cada día que sincronizas.</p>';
